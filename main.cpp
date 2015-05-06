@@ -11,7 +11,20 @@ using namespace std;
 
 int main(void)
 {
-  // Test for BasicTrieNodes and  TrieNodes
+  ULL *ull = new ULL();
+
+  ull->insert(1);
+  ull->insert(2);
+  ull->insert(3);
+  ull->deleteMax();
+
+  ull->printAll();
+  cout << ull->getNumber();
+
+  return 0;
+}
+/*
+// Test for BasicTrieNodes and  TrieNodes
   BasicTrieNode  *bpointer,*pointer,*ptr;
   ptr = new TrieNode();
   bpointer = new BasicTrieNode();
@@ -54,6 +67,4 @@ int main(void)
   //        else cout << "False 0 ";                                   //*****
   //  cout << q->WhoAmI()-1 << endl;                                   //*****
   //
-  return 0;
-}
-
+  */

@@ -5,11 +5,11 @@ using namespace std;
 
 ULL::ULL(){
 	this->first = NULL;
+	this->setNumber(0);
 }
 
 ULL::~ULL(){
 	this->deleteAll();
-	this->first = NULL;
 }
 
 
@@ -22,6 +22,7 @@ void ULL::setFirst(ULLNode *a){
 }
 
 void ULL::insert(int a){
+	this->numberPlus();
 	ULLNode* p = new ULLNode(a);
 	if (this->first == NULL){
 		this->first = p;
@@ -30,34 +31,33 @@ void ULL::insert(int a){
 	p->setNext(this->first);
 	this->first = p;
 }
-int ULL::deleteMin(){
-	ULLNode *p = this->first;
-	ULLNode *temp = p;
-	if (p == NULL) return -9999;
 
+
+void ULL::deleteMin(){
+	ULLNode *p = this->first;
+	ULLNode *temp;
+	if (p == NULL) return;
 	int min = p->getData();
-	if (p->getNext() == NULL){
-		delete p;
-		this->first = NULL;
-		return min;
-	}
-	while(p->getNext() != NULL){
-		if (p->getNext()->getData() < min){
-			min = p->getNext()->getData();
-			temp = p;
-		}
+	while (p != NULL){
+		if (p->getData() < min)
+			min = p->getData();
 		p = p->getNext();
 	}
-	if (p->getData() < min){
-		min = p->getData();
-
+	p = first;
+	if (p->getData() == min){
+		temp = p;
+		first = p->getNext();
+		delete temp;
+		this->numberMinus();
+		return;
 	}
-	ULLNode *p1 = temp;
-	temp = temp->getNext();
-	p1->setNext(temp);
+	while (p->getNext()->getData() != min){
+		p = p->getNext();
+	}
+	temp = p->getNext();
+	p->setNext(temp->getNext());
 	delete temp;
-	return min;
-
+	this->numberMinus();
 }
 
 int ULL::minElem(){
@@ -73,33 +73,31 @@ int ULL::minElem(){
 	return min;
 }
 
-int ULL::deleteMax(){
+void ULL::deleteMax(){
 	ULLNode *p = this->first;
-	ULLNode *temp = p;
-	if (p == NULL) return -9999;
-
+	ULLNode *temp;
+	if (p == NULL) return;
 	int max = p->getData();
-	if (p->getNext() == NULL){
-		delete p;
-		this->first = NULL;
-		return max;
-	}
-	while(p->getNext() != NULL){
-		if (p->getNext()->getData() > max){
-			max = p->getNext()->getData();
-			temp = p;
-		}
+	while (p != NULL){
+		if (p->getData() > max)
+			max = p->getData();
 		p = p->getNext();
 	}
-	if (p->getData() > max){
-		max = p->getData();
-
+	p = first;
+	if (p->getData() == max){
+		temp = p;
+		first = p->getNext();
+		delete temp;
+		this->numberMinus();
+		return;
 	}
-	ULLNode *p1 = temp;
-	temp = temp->getNext();
-	p1->setNext(temp);
+	while (p->getNext()->getData() != max){
+		p = p->getNext();
+	}
+	temp = p->getNext();
+	p->setNext(temp->getNext());
 	delete temp;
-	return max;
+	this->numberMinus();
 }
 
 int ULL::maxElem(){
@@ -123,6 +121,7 @@ void ULL::deleteValue(int i){
 	if (p->getData() == i){
 		temp = p;
 		this->setFirst(p->getNext());
+		this->numberMinus();
 		delete temp;
 		return;
 	}
@@ -136,6 +135,7 @@ void ULL::deleteValue(int i){
 			}
 			else{
 				p->setNext(temp->getNext());
+				this->numberMinus();
 				delete temp;
 			}
 		}

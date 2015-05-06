@@ -14,8 +14,8 @@ public:
 	void insert(int);
 	void deleteValue(int);
 	void deleteAllValues(int);
-	int deleteMin();
-	int deleteMax();
+	void deleteMin();
+	void deleteMax();
 	void deleteAll();
 	int minElem();
 	int maxElem();
