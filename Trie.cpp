@@ -122,47 +122,59 @@ void Trie::Merge(string s, string t){
 
 
 void Trie::Insert(string x, int i){
-    if (!Member(x)) return;
+    BasicTrieNode *p = pointerToWord(x);
+    if (p == NULL) return;
     BasicTrieNode *current = this->pointerToWord(x);
-    ULL *p = (ULL *) current->GetPtr2MS();
-    p->insert(i);
+    ULL *d = (ULL *) current->GetPtr2MS();
+    d->insert(i);
 }
 
 void Trie::DeleteElem(string x, int i){
-  if (!Member(x)) return;
+  BasicTrieNode *p = pointerToWord(x);
+  if (p == NULL) return;
   BasicTrieNode *current = this->pointerToWord(x);
-  ULL *p = (ULL *) current->GetPtr2MS();
-  p->deleteValue(i);
+  ULL *d = (ULL *) current->GetPtr2MS();
+  d->deleteValue(i);
 }
 
 void Trie::DeleteMax(string x){
-  if (!Member(x)) return;
+  BasicTrieNode *p = pointerToWord(x);
+  if (p == NULL) return;
   BasicTrieNode *current = this->pointerToWord(x);
-  ULL *p = (ULL *) current->GetPtr2MS();
-  p->deleteMax();
+  ULL *d = (ULL *) current->GetPtr2MS();
+  d->deleteMax();
 }
 
 void Trie::PrintMax(string x){
-  if (!Member(x)) return;
+  BasicTrieNode *p = pointerToWord(x);
+  if (p == NULL) return;
   BasicTrieNode *current = this->pointerToWord(x);
-  ULL *p = (ULL *) current->GetPtr2MS();
-  p->printMax();
+  ULL *d = (ULL *) current->GetPtr2MS();
+  d->printMax();
 }
 
 void Trie::PrintMin(string x){
-  if (!Member(x)) return;
+  BasicTrieNode *p = pointerToWord(x);
+  if (p == NULL) return;
   BasicTrieNode *current = this->pointerToWord(x);
-  ULL *p = (ULL *) current->GetPtr2MS();
-  p->printMin();
+  ULL *d = (ULL *) current->GetPtr2MS();
+  d->printMin();
 }
 
-
+void Trie::PrintNum(string x){
+  BasicTrieNode *p = pointerToWord(x);
+  if (p == NULL) return;
+  BasicTrieNode *current = this->pointerToWord(x);
+  ULL *d = (ULL *) current->GetPtr2MS();
+  cout << d->getNumber() << endl;
+}
 
 void Trie::Dist(string x, int k){
-  if (!Member(x)) return;
+  BasicTrieNode *p = pointerToWord(x);
+  if (p == NULL) return;
   BasicTrieNode *current = this->pointerToWord(x);
-  ULL *p = (ULL *) current->GetPtr2MS();
-  p->distance(k);
+  ULL *d = (ULL *) current->GetPtr2MS();
+  d->distance(k);
 }
 
 void Trie::CountN(){
@@ -227,16 +239,33 @@ int Trie::CountNT(BasicTrieNode *current){
   return counter;
 }
 
-void Trie::PrintNum(string x){
-  BasicTrieNode *p = pointerToWord(x);
-  if (p == NULL) return;
+void Trie::PrintNumGT(string x){
+  int counter = 0;
+  BasicTrieNode *current = pointerToWord(x);
+  if (current == NULL) return;
 
-  MultiSet* a = p->GetPtr2MS();
-  cout << a->getNumber() << endl;
+  for (int i = 0; i < TrieMaxElem; i++){
+    if (current->GetPtr(i) != 0)
+      counter += PrintNumGT(x, current->GetPtr(i));
+  }  
+}
+
+int Trie::PrintNumGT(string x, BasicTrieNode* current){
+  int counter = 0;
+  if (current == NULL) return counter;
+  if (current->GetPtr2MS() != 0) counter ++;
+  if (current->WhoAmI() == 0){
+    return counter;
+  } 
+  for (int i = 0; i < TrieMaxElem; i++){
+    if (current->GetPtr(i) != 0)
+      counter += PrintNumGT(x, current->GetPtr(i));
+  }
+  return counter;
 }
 
 void Trie::Delete(string x){
-  /*
+  
   int length = x.size();
   BasicTrieNode *p = this->root;
   
@@ -265,8 +294,10 @@ void Trie::Delete(string x){
   if (root == NULL){
     root = new BasicTrieNode();
   }
-*/
+
 }
+
+
 
 void Trie::DeleteAll(string x){
   if (!Member(x)) return;

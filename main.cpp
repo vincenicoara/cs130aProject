@@ -13,27 +13,19 @@ int main(void)
 {
   Trie * trie = new Trie();
 
-  trie->Create("cad");
+  trie->Create("abc");
+  trie->Create("a");
+  trie->Create("dda");
 
 
-  trie->Insert("cad",2);
-  trie->Insert("cad",3);
-
-  trie->Create("catnip");
-  trie->Create("cad");
-
-  trie->Insert("cad",23);
-  trie->Insert("cad",35);
-  trie->Insert("catnip",6);
-
-  trie->Create("cad");
+  trie->Insert("abc",2);
+  trie->Insert("a",3);
 
 
-  trie->Insert("cad",2);
-  trie->Insert("cad",3);
-  trie->Insert("cad",4);
+  trie->Insert("dda",87);
 
-  trie->PrintNum("cad");
+
+  trie->PrintNumGT("a");
   //trie->Merge("cat","catnip");
   cout << endl;
 

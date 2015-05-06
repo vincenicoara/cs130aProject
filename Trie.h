@@ -13,6 +13,7 @@ private:
   	bool CheckTrieNodeEmpty(TrieNode *current);
   	int CountN(BasicTrieNode*);
     int CountNT(BasicTrieNode *current);
+    int PrintNumGT(string x, BasicTrieNode* current);
 public:
 	Trie() ;
   	void Create(string);
@@ -23,6 +24,7 @@ public:
   	void PrintMax(string x);
   	void PrintMin(string x);
   	void PrintNum(string x);
+    void PrintNumGT(string x);
   	void Dist(string x, int k);
   	void CountN();
     void CountNT();
