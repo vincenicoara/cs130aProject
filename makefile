@@ -3,7 +3,7 @@ CFLAGS=-c -Wall -g
 LDFLAGS=
 SOURCES=main.cpp ULLNode.cpp ULL.cpp Trie.cpp TrieNode.cpp BasicTrieNode.cpp MultiSet.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=run
+EXECUTABLE=k
 
 all: $(SOURCES) $(EXECUTABLE)
 

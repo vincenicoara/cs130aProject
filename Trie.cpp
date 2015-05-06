@@ -126,7 +126,6 @@ void Trie::Insert(string x, int i){
     BasicTrieNode *current = this->pointerToWord(x);
     ULL *p = (ULL *) current->GetPtr2MS();
     p->insert(i);
-    p->numberPlus();
 }
 
 void Trie::DeleteElem(string x, int i){
@@ -157,12 +156,7 @@ void Trie::PrintMin(string x){
   p->printMin();
 }
 
-void Trie::PrintNum(string x){
-  if (!Member(x)) return;
-  BasicTrieNode *current = this->pointerToWord(x);
-  ULL *p = (ULL *) current->GetPtr2MS();
-  p->printNumberElements();
-}
+
 
 void Trie::Dist(string x, int k){
   if (!Member(x)) return;
@@ -195,10 +189,50 @@ int Trie::CountN(BasicTrieNode *current){
       if (current->GetPtr(i) != 0)
         counter += CountN(current->GetPtr(i));
   }
-
-
-  
   return counter;
+}
+
+void Trie::CountNT(){
+  int counter = 0;
+  if (root->WhoAmI() == 0){
+    cout << "0" << endl;
+    return;
+  }
+  for (int i = 0; i < TrieMaxElem; i++){
+    if (root->GetPtr(i) != 0){
+      counter += CountNT(root->GetPtr(i));
+    }
+  }
+  cout << counter << endl;
+}
+
+int Trie::CountNT(BasicTrieNode *current){
+  int counter = 0;
+  if (current == NULL) return counter;
+  if (current->GetPtr2MS() != 0){
+    MultiSet *p = current->GetPtr2MS();
+    counter++;
+    while (p->getptr2prev() != NULL){
+      p = p->getptr2prev();
+      counter++;
+    }
+  }
+  if (current->WhoAmI() == 0){
+    return counter;
+  }
+  for (int i = 0; i < TrieMaxElem; i++){
+      if (current->GetPtr(i) != 0)
+        counter += CountNT(current->GetPtr(i));
+  }
+  return counter;
+}
+
+void Trie::PrintNum(string x){
+  BasicTrieNode *p = pointerToWord(x);
+  if (p == NULL) return;
+
+  MultiSet* a = p->GetPtr2MS();
+  cout << a->getNumber() << endl;
 }
 
 void Trie::Delete(string x){

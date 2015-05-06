@@ -12,6 +12,7 @@ private:
     //bool Delete(char x[], int i, TrieNode *current );
   	bool CheckTrieNodeEmpty(TrieNode *current);
   	int CountN(BasicTrieNode*);
+    int CountNT(BasicTrieNode *current);
 public:
 	Trie() ;
   	void Create(string);
@@ -24,6 +25,7 @@ public:
   	void PrintNum(string x);
   	void Dist(string x, int k);
   	void CountN();
+    void CountNT();
   	bool Member(string x);
   	void Delete(string x);
   	void DeleteAll(string x);

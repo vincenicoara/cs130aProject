@@ -11,15 +11,31 @@ using namespace std;
 
 int main(void)
 {
-  ULL *ull = new ULL();
+  Trie * trie = new Trie();
 
-  ull->insert(1);
-  ull->insert(2);
-  ull->insert(3);
-  ull->deleteMax();
+  trie->Create("cad");
 
-  ull->printAll();
-  cout << ull->getNumber();
+
+  trie->Insert("cad",2);
+  trie->Insert("cad",3);
+
+  trie->Create("catnip");
+  trie->Create("cad");
+
+  trie->Insert("cad",23);
+  trie->Insert("cad",35);
+  trie->Insert("catnip",6);
+
+  trie->Create("cad");
+
+
+  trie->Insert("cad",2);
+  trie->Insert("cad",3);
+  trie->Insert("cad",4);
+
+  trie->PrintNum("cad");
+  //trie->Merge("cat","catnip");
+  cout << endl;
 
   return 0;
 }

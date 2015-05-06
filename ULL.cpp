@@ -176,6 +176,7 @@ void ULL::deleteAll(){
 		p = first;
 	}
 	first = NULL;
+	this->setNumber(0);
 }
 
 void ULL::printAll(){
@@ -241,6 +242,7 @@ void ULL::append(ULLNode *node){
 		p = p->getNext();
 	}
 	p->setNext(node);
+	this->numberPlus();
 }
 
 bool ULL::Check(int* pcount)                                      //*****
